@@ -15,6 +15,7 @@
  */
 package com.google.android.exoplayer2.text.webvtt;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.text.Layout.Alignment;
@@ -381,6 +382,24 @@ public final class WebvttCueParser {
         text.setSpan(new UnderlineSpan(), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         break;
       case TAG_CLASS:
+        if (startTag.classes.length == 0) {
+          break;
+        }
+        switch (startTag.classes[0]) {
+          case "yellow":
+            text.setSpan(new ForegroundColorSpan(Color.YELLOW), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            break;
+          case "red":
+            text.setSpan(new ForegroundColorSpan(Color.RED), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            break;
+          case "blue":
+            text.setSpan(new ForegroundColorSpan(Color.BLUE), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            break;
+          case "cyan":
+            text.setSpan(new ForegroundColorSpan(Color.CYAN), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            break;
+        }
+        break;
       case TAG_LANG:
       case TAG_VOICE:
       case "": // Case of the "whole cue" virtual tag.
@@ -517,6 +536,7 @@ public final class WebvttCueParser {
         voice = "";
       } else {
         voice = fullTagExpression.substring(voiceStartIndex).trim();
+        fullTagExpression = fullTagExpression.substring(0, voiceStartIndex);
         fullTagExpression = fullTagExpression.substring(0, voiceStartIndex);
       }
       String[] nameAndClasses = Util.split(fullTagExpression, "\\.");
