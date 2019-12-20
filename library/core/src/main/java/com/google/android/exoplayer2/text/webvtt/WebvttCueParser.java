@@ -537,7 +537,6 @@ public final class WebvttCueParser {
       } else {
         voice = fullTagExpression.substring(voiceStartIndex).trim();
         fullTagExpression = fullTagExpression.substring(0, voiceStartIndex);
-        fullTagExpression = fullTagExpression.substring(0, voiceStartIndex);
       }
       String[] nameAndClasses = Util.split(fullTagExpression, "\\.");
       String name = nameAndClasses[0];
